@@ -1,0 +1,390 @@
+.playerprofile_profile_tabs_main_div{
+    width: 100%;
+    margin-top: 20px;
+}
+.nav-tabs{
+    border-bottom: none;
+    justify-content: center;
+    gap: 20px;
+}
+.nav-tabs .nav-link{
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: #000;
+}
+.nav-tabs .navlink:hover{
+    border: none !important;
+}
+.nav-tabs .nav-link.active{
+    border: none;
+    border-bottom: 1px solid #FF3333;
+    color: #FF3333;
+}
+.video_tab_content_main{
+    font-family: "Poppins", sans-serif;
+    background-color: #FFFFFF;
+    padding-bottom: 100px;
+}
+/* Aboutplayer ============== */
+.video_tab_aboutplayer_card_body{
+    box-shadow: 0px 0px 13px 0px #0000000D;
+    padding: 25px;  
+    border-radius: 12px;
+    margin-top: 40px;
+    background: #FFFFFF;
+}
+.video_tab_aboutplayer_card_body label{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #6A6A6A;
+}
+.video_tab_aboutplayer_card_body p{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+}
+.video_tab_aboutplayer_card_inner{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding: 15px 25px;
+    border-radius: 30px;
+    background: #F8F9FF;
+}
+.video_tab_aboutplayer_card_inner h6{
+    margin-bottom: 0;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21px;
+    color: #000;
+}
+.video_tab_aboutplayer_card_inner h5{
+    margin-bottom: 0;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21px;
+    color: #000;
+}
+/* Interest ============== */
+.video_tab_interest_card_div{
+    box-shadow: 0px 0px 13px 0px #0000000D;
+    padding: 25px;  
+    border-radius: 12px;
+    margin-top: 40px;
+    background: #FFFFFF;
+}
+.video_tab_interest_card_div p{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #6A6A6A;
+}
+.video_tab_interest_card_inner_main{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.video_tab_interest_card_inner{
+    background: #F8F9FF;
+    padding: 12px 20px;
+    border-radius: 30px;
+}
+.video_tab_interest_card_inner h6{
+    margin-bottom: 0;
+} 
+/* Team ============== */
+.video_tab_team_card_body{
+    box-shadow: 0px 0px 13px 0px #0000000D;
+    padding: 25px;  
+    border-radius: 12px;
+    margin-top: 40px;
+    background: #FFFFFF;
+}
+.video_tab_team_card_body label{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #6A6A6A;
+}
+.video_tab_team_card_inner{
+    margin-top: 30px;
+    padding: 15px 25px;
+    border-radius: 30px;
+    background: #F8F9FF;
+}
+.video_tab_team_card_inner p{
+    margin-bottom: 0;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21px;
+    color: #000;
+    margin-bottom: 0;
+    padding-top: 6px;
+}
+.video_tab_team_card_inner h5{
+    margin-bottom: 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21px;
+    color: #000;
+}
+/* Career ============== */
+.video_career_title{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+.video_career_title label{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #6A6A6A;
+}
+.video_career_title select{
+    background-color: #F8F9FF;
+    padding: 10px 20px;
+    width: 120px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: none !important;
+}
+.video_tab_career_card_body{
+    box-shadow: 0px 0px 13px 0px #0000000D;
+    padding: 25px;  
+    border-radius: 12px;
+    margin-top: 40px;
+    background: #FFFFFF;
+}
+.video_tab_career_card_inner{
+    margin-top: 30px;
+    padding: 15px 25px;
+    border-radius: 30px;
+    background: #F8F9FF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.video_tab_career_card_inner h6{
+    margin-bottom: 0;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 21px;
+    color: #000;
+    margin-bottom: 0;
+    padding-top: 6px;
+}
+.video_tab_career_card_inner h5{
+    margin-bottom: 0;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 21px;
+    color: #000;
+}
+
+
+/* Last_Videos ==================*/
+.video_tab_last_videos_main{
+    margin-top: 40px;
+}
+.video_tab_last_video_div{
+    position: relative;
+}
+.video_tab_last_video_div .image1{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    cursor: pointer;
+}
+.video_tab_last_video_div span{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #fff;
+}
+.video_tab_last_video_div span img{
+    height: 15px;
+    margin-top: -3px;
+    cursor: pointer;
+}
+.video_tab_last_videos_main .col-lg-2{
+    padding: 2px;
+}
+.offers_tab_last_cards_main_div{
+    margin-top: 40px;
+}
+.offers_tab_last_inner1{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.offers_tab_last_inner1_img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F1F1F1;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+.offers_tab_last_inner1_img img{
+    height: 20px;
+    width: auto;
+}
+.offers_tab_last_card_body{
+    box-shadow: 0px 0px 13px 0px #0000000D;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 10px;
+    margin-top: 25px;
+    padding: 15px 8px;
+    border-radius: 14px;
+}
+.offers_tab_last_inner1_text{
+    font-family: "Poppins", sans-serif;
+}
+.offers_tab_last_inner1_text h4{
+    margin-bottom: 0;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 21px;
+    color: #000;
+}
+.offers_tab_last_inner1_text p{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    margin-bottom: 0;
+    color: #000;
+}
+.offers_tab_last_card_btn button{
+    padding: 4px 10px 4px 10px;
+    gap: 4px;
+    border-radius: 30px;
+    background: #F1F1F1;
+    font-family: "Poppins", sans-serif;
+    border: none;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+.offers_tab_last_card_btn span{
+    height: 5px;
+    width: 5px;
+    background: #1EF24D;
+    display: block;
+    border-radius: 50%;
+    margin-top: -2px;
+}
+@media (max-width:576px){
+    .video_tab_aboutplayer_card_body {
+        box-shadow: 0px 0px 13px 0px #0000000D;
+        padding: 15px;
+        border-radius: 12px;
+        margin-top: 40px;
+        background: #FFFFFF;
+    }
+    .playerpro_inner_main {
+        padding: 0px;
+    }
+    .video_tab_aboutplayer_card_inner h5 {
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+    .video_tab_stat_card_inner {
+        padding: 14px 10px;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    .video_tab_career_card_inner h5 {
+        margin-bottom: 0;
+        font-size: 16px;
+    }
+    .video_tab_career_card_inner {
+        margin-top: 20px;
+        padding: 10px 15px;
+    }
+    .video_tab_aboutplayer_card_inner h6 {
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+    .video_tab_interest_card_div {
+        box-shadow: 0px 0px 13px 0px #0000000D;
+        padding: 15px;
+        border-radius: 12px;
+        margin-top: 40px;
+        background: #FFFFFF;
+    }
+    .video_tab_interest_card_inner {
+        background: #F8F9FF;
+        padding: 8px 12px;
+        border-radius: 30px;
+    }
+    .video_tab_interest_card_inner h6 {
+        margin-bottom: 0;
+        font-size: 15px;
+    }
+    .video_tab_team_card_inner h5 {
+        margin-bottom: 0;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 21px;
+        color: #000;
+    }
+    .video_tab_team_card_inner p {
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+    .video_tab_team_card_body {
+        box-shadow: 0px 0px 13px 0px #0000000D;
+        padding: 15px;
+    }
+    .video_tab_career_card_body{
+        padding: 15px;
+    }
+    .video_tab_career_card_inner h6{
+        font-size: 15px;
+    }
+    .video_tab_last_video_div .image1 {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        cursor: pointer;
+    }
+    .video_tab_aboutplayer_card_inner {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        padding: 10px 15px;
+        border-radius: 30px;
+        background: #F8F9FF;
+        flex-wrap: wrap;
+    }
+    .video_tab_aboutplayer_card_inner h5{
+        text-align: end;
+    }
+    .video_tab_aboutplayer_card_body p {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 24px;
+    }
+}
+@media (max-width:360px){
+    .video_tab_career_card_inner h6{
+        font-size: 12px !important;
+    }
+    .video_tab_team_card_inner p {
+        margin-bottom: 0;
+        font-size: 12px;
+    }
+    .video_career_title label {
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 18px;
+        color: #6A6A6A;
+    }
+}

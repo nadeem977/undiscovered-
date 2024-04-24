@@ -1,0 +1,285 @@
+.playerprofile_title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+}
+.playerprofile_title p{
+    margin-bottom: 0;
+    color: #000;
+    font-size: 22px;
+    padding-bottom: 10px;
+}
+.playerprofile_title div{
+    width: 20px;
+}
+.playerpro_inner_main{
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    box-shadow: 0px 0px 13px 0px #0000000D;
+    padding: 20px;
+    width: 100%;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+.playerpro_inner_for_shadow{
+    padding: 25px;
+    box-shadow: 0px 0px 13px 0px #0000000D;
+    border-radius: 12px;
+}
+.playerpro_inner_main::-webkit-scrollbar{
+    width: 0;
+}
+.playerprofile_profile_card_main_div{
+    width: 100%;
+    margin: auto;
+    margin-top: 0px;
+}
+.playerprofile_profile_card_title{
+    margin-top: 5px;
+}
+.playerprofile_profile_card_title h2{
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 34px;
+    margin-bottom: 0;
+}
+.playerprofile_profile_card_title h2 img{
+    height: 17px;
+    padding-left: 8px;
+}
+.playerprofile_profile_card_title p{
+    color: #6A6A6A;
+    font-family: 'SF_Regular';
+    font-size: 14px;
+    margin-bottom: 0;
+}
+.playerprofile_profile_card_title p img{
+    height: 21px;
+    padding-right: 8px;
+}
+.playerprofile_info_div{
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+}
+.playerprofile_info_div div{
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+    text-align: center;
+    border-right: 1px solid #6E779A33;
+    padding: 0px 10px;
+}
+.playerprofile_info_div p{
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    color: #131416;
+    font-family: 'SF_Medium';
+}
+.playerprofile_info_div h6{
+    padding-top: 4px;
+    font-family: 'SF_Bold';
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 19.09px;
+    text-align: center;
+}
+.playerprofile_profile_card_inner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.playerprofile_profile_img{
+    border: 6px solid #131416;
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+}
+.playerprofile_profile_inner1{
+    position: relative;
+    border: 6px solid #E5333C;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+}
+.playerprofile_profile_inner1 img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #131416;
+}
+.playerprofile_profile_img span{
+    position: absolute;
+    background: #10CA7F;
+    height: 13px;
+    min-width: 13px;
+    border-radius: 50%;
+    top: 10px;
+    right: 3px;
+}
+.playerprofile_social_icons_main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    max-width: 300px;
+    margin-top: 30px;
+}
+.playerprofile_social_icons_main img{
+    height: 28px;
+    width: auto;
+    cursor: pointer;
+}
+.profile_followers_counter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 240px;
+    margin: auto;
+    padding-top: 20px;
+}
+.profile_followers_counter h6{
+    font-weight: 800;
+    margin-bottom: 0;
+}
+.profile_followers_counter p{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    font-family: 'SF_Regular';
+    text-align: left;
+    color: #6A6A6A;
+    padding-top: 3px;
+
+}
+.profile_content1{
+    padding: 10px 0px;
+    border-right: 1px solid #9C9C9C;
+    padding-right: 50px;
+    min-height: 180px;
+    min-width: 240px;
+}
+.profile_content2{
+    border-right: 1px solid #9C9C9C;
+    padding: 0px 60px 0px 40px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+}
+/* Stats ============== */
+.video_tab_stat_card_body{
+    border-radius: 12px 12px 0px 0px;    
+    box-shadow: 0px 0px 13px 0px #0000000D;
+    background: #FFFFFF;
+    width: 100%;
+    max-width: 320px;
+}
+.video_tab_stat_card_body h5{
+    margin-bottom: 0;
+    padding: 10px;
+    background: #FF3333;
+    border-radius: 12px 12px 0px 0px;    
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+}
+.video_tab_stat_card_inner{
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.video_tab_stat_card_inner div{
+    width: 100px;
+    border-right: 1px solid #9C9C9C;
+}
+.video_tab_stat_card_inner p{
+    margin-bottom: 0;
+    color: #000000;
+    font-weight: 600;
+    font-size: 15px;
+}
+.video_tab_stat_card_inner h6{
+    font-weight: 800;
+    color: #000000;
+    font-size: 15px;
+}
+.video_tab_stat_card_inner div:last-child {
+    border-right: none;
+}
+@media (max-width:800px){
+    .profile_content1{
+        border: none;
+    }
+    .profile_content2{
+        border: none;
+    }
+}
+@media (max-width:576px){
+    .playerprofile_profile_card_title h2 {
+        font-size: 18px;
+    }
+    .playerprofile_profile_card_title p{
+        font-size: 16px;
+    }
+    .playerprofile_info_div p {
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+    .playerprofile_info_div h6 {
+        padding-top: 0px;
+        font-family: 'SF_Bold';
+        font-size: 17px;
+    }
+    .playerprofile_info_div{
+        gap: 0;
+    }
+    .playerprofile_info_div div {
+        display: flex;
+        flex-direction: column;
+        min-width: 75px;
+        text-align: center;
+        border-right: 1px solid #6E779A33;
+    }
+    .playerprofile_social_icons_main img {
+        height: 22px;
+        width: auto;
+    }
+    .playerprofile_social_icons_main {
+        gap: 25px;
+        max-width: 260px;
+    }
+    .playerprofile_profile_inner1 img {
+        border-radius: 50%;
+        object-fit: cover;
+        background: #131416;
+    }
+    .playerprofile_profile_card_inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap-reverse;
+    }
+    .profile_followers_counter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+        width: 100%;
+        max-width: 260px;
+    }
+}

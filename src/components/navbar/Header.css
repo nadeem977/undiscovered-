@@ -1,0 +1,34 @@
+.navbar_btn{
+    background-color: #fc3333;
+    border: none;
+    width: 120px;
+    border-radius: 30px;
+}
+.navbar_btn:hover{
+    background-color: #fc3333;
+}
+.navbar_btn:focus-visible{
+    background-color: #fc3333;
+}
+.navbar-nav .nav-link{
+    color: #000;
+}
+.navbar-nav .nav-link.active{
+    color: #fc3333;
+}
+.navbar-nav{
+    gap: 25px;
+    align-items: center;
+}
+.mylogo{
+    height: 60px;
+}
+.navbar-toggler{
+    box-shadow: none !important;
+    border: none !important;
+}
+@media(max-width:992px){
+    .navbar-nav{
+        padding-bottom: 30px;
+    }
+}
