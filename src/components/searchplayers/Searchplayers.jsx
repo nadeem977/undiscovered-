@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
@@ -11,16 +11,19 @@ import Location from '../../assets/img/Location.svg';
 import './Searchplayers.css';
 import { Link } from 'react-router-dom';
 import Bar from '../../components/bar/Bar';
+import { AppContext } from '../../context/CreateContext';
+import { IMAGE_URL } from '../../Config';
 
 
 
-const Searchplayers = ({ buttonText }) => {
+const Searchplayers = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [actives, setActives] = useState("SG");
     const [activesHeight, setActivesHeight] = useState("AA");
     const [activesYear, setActivesYear] = useState("2021");
-
+    const { profilesInfo } = useContext(AppContext)
+ 
     return (
         <section className="searchplayers_section">
             <Container>
@@ -74,9 +77,9 @@ const Searchplayers = ({ buttonText }) => {
                                     </div>
                                 </div>
                                 <div className="sidebar_select_div">
-                                    <select name="" id="" className='form-select'>
-                                        <option value="" disabled selected>Select Location</option>
-                                        <option value="">Chicago, IL</option>
+                                    <select  className='form-select'>
+                                        <option value="Select Location"  >Select Location</option>
+                                        <option value="Chicago, IL">Chicago, IL</option>
                                     </select>
                                     <img src={Location} alt="" />
                                 </div>
@@ -85,7 +88,7 @@ const Searchplayers = ({ buttonText }) => {
                                         <p>Distance range</p>
                                         <p>200 MI</p>
                                     </div>
-                                    <div class="range">
+                                    <div className="range">
                                         <input type="range" />
                                     </div>
                                 </div>
@@ -136,7 +139,7 @@ const Searchplayers = ({ buttonText }) => {
                                         <p>Academic GPA</p>
                                         <p>2.0 - 3.5</p>
                                     </div>
-                                    <div class="range">
+                                    <div className="range">
                                         <input type="range" />
                                     </div>
                                 </div>
@@ -147,37 +150,12 @@ const Searchplayers = ({ buttonText }) => {
                         </div>
                     </div>
                 </div>
-                {/* <div className="searchplayers_select_main_div">
-                    <select className='form-select' name="Position" id="Position">
-                        <option value="" disabled selected>Position</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                    </select>
-                    <select className='form-select' name="Class" id="Class">
-                        <option value="" disabled selected>Class</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                    </select>
-                    <select className='form-select' name="Height" id="Height">
-                        <option value="">Height</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                    </select>
-                    <select className='form-select' name="Experience" id="Experience">
-                        <option value="" disabled selected>Experience</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                    </select>
-                </div> */}
+ 
                 <div className="for_web_filters_main_div">
                     <div className='web_ford_flex'>
-                        <div class="forweb_filter_text1_div">
+                        <div className="forweb_filter_text1_div">
                             <p>Position</p>
-                            <div class="sidebar_text1_btns_main">
+                            <div className="sidebar_text1_btns_main">
                                 <button type='button'
                                     className={`${actives === 'SG' ? "active_btn" : ""}`}
                                     onClick={() => setActives("SG")}>SG</button>
@@ -196,8 +174,8 @@ const Searchplayers = ({ buttonText }) => {
                                 >C</button>
                             </div>
                         </div>
-                        <div class="forweb_select_div">
-                            <select name="" id="" class="form-select">
+                        <div className="forweb_select_div">
+                            <select name="" id="" className="form-select">
                                 <option value="" disabled="">Select Location</option>
                                 <option value="">Chicago, IL</option>
                             </select>
@@ -208,15 +186,15 @@ const Searchplayers = ({ buttonText }) => {
                                 <p>Distance range</p>
                                 <p>200 MI</p>
                             </div>
-                            <div class="range">
+                            <div className="range">
                                 <input type="range" />
                             </div>
                         </div>
                     </div>
                     <div className='web_ford_flex'>
-                        <div class="forweb_filter_text1_div">
+                        <div className="forweb_filter_text1_div">
                             <p>Class</p>
-                            <div class="sidebar_text1_btns_main">
+                            <div className="sidebar_text1_btns_main">
                                 <button type='button'
                                     className={`${activesYear === '2021' ? "active_btn" : ""}`}
                                     onClick={() => setActivesYear("2021")}>2021</button>
@@ -235,9 +213,9 @@ const Searchplayers = ({ buttonText }) => {
                                 >2024</button>
                             </div>
                         </div>
-                        <div class="forweb_filter_text1_div">
+                        <div className="forweb_filter_text1_div">
                             <p>Height</p>
-                            <div class="sidebar_text1_btns_main">
+                            <div className="sidebar_text1_btns_main">
                                 <button type='button'
                                     className={`${activesHeight === 'AA' ? "active_btn" : ""}`}
                                     onClick={() => setActivesHeight("AA")}>5.2</button>
@@ -261,88 +239,31 @@ const Searchplayers = ({ buttonText }) => {
                                 <p>Academic GPA</p>
                                 <p>2.0 - 3.5</p>
                             </div>
-                            <div class="range">
+                            <div className="range">
                                 <input type="range" />
                             </div>
                         </div>
                     </div>
 
-                    <div class="sidebar_last_btn"><button type="button">Apply</button></div>
+                    <div className="sidebar_last_btn"><button type="button">Apply</button></div>
                 </div>
                 <div className="profile_card_main">
                     <Row>
-                        <Col lg="4" md="4" sm="12">
-                            <div className="profile_card_main_div">
-                                <div className="profile_card_img">
-                                    <img src={Avatar} alt="" />
+                        {profilesInfo.map((item, i) => (
+                            <Col lg="4" md="4" sm="12" key={i}>
+                                <div className="profile_card_main_div">
+                                    <div className="profile_card_img">
+                                        <img src={`${IMAGE_URL}/${item.image}`} alt="image" />
+                                    </div>
+                                    <div className="profile_card_text">
+                                        <h3>{item.name}</h3>
+                                        <p>Montverde academy</p>
+                                        <h6>F  |  {item.height}  |  {item.weight} Ibs  |  {item.year}</h6>
+                                    </div>
                                 </div>
-                                <div className="profile_card_text">
-                                    <h3>Kathryn Murphy</h3>
-                                    <p>Montverde academy</p>
-                                    <h6>F  |  6’5”  |  170 Ibs  |  2025</h6>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col lg="4" md="4" sm="12">
-                            <div className="profile_card_main_div">
-                                <div className="profile_card_img">
-                                    <img src={Avatar} alt="" />
-                                </div>
-                                <div className="profile_card_text">
-                                    <h3>Kathryn Murphy</h3>
-                                    <p>Montverde academy</p>
-                                    <h6>F  |  6’5”  |  170 Ibs  |  2025</h6>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col lg="4" md="4" sm="12">
-                            <div className="profile_card_main_div">
-                                <div className="profile_card_img">
-                                    <img src={Avatar} alt="" />
-                                </div>
-                                <div className="profile_card_text">
-                                    <h3>Kathryn Murphy</h3>
-                                    <p>Montverde academy</p>
-                                    <h6>F  |  6’5”  |  170 Ibs  |  2025</h6>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col lg="4" md="4" sm="12">
-                            <div className="profile_card_main_div">
-                                <div className="profile_card_img">
-                                    <img src={Avatar} alt="" />
-                                </div>
-                                <div className="profile_card_text">
-                                    <h3>Kathryn Murphy</h3>
-                                    <p>Montverde academy</p>
-                                    <h6>F  |  6’5”  |  170 Ibs  |  2025</h6>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col lg="4" md="4" sm="12">
-                            <div className="profile_card_main_div">
-                                <div className="profile_card_img">
-                                    <img src={Avatar} alt="" />
-                                </div>
-                                <div className="profile_card_text">
-                                    <h3>Kathryn Murphy</h3>
-                                    <p>Montverde academy</p>
-                                    <h6>F  |  6’5”  |  170 Ibs  |  2025</h6>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col lg="4" md="4" sm="12">
-                            <div className="profile_card_main_div">
-                                <div className="profile_card_img">
-                                    <img src={Avatar} alt="" />
-                                </div>
-                                <div className="profile_card_text">
-                                    <h3>Kathryn Murphy</h3>
-                                    <p>Montverde academy</p>
-                                    <h6>F  |  6’5”  |  170 Ibs  |  2025</h6>
-                                </div>
-                            </div>
-                        </Col>
+                            </Col>
+                        ))}
+
                     </Row>
                 </div>
             </Container>

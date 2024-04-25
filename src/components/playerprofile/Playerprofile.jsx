@@ -1,7 +1,5 @@
-import React from 'react'
+import React, { useContext,useState ,useEffect} from 'react'
 import Container from 'react-bootstrap/Container';
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
 import './Playerprofile.css'
 import arrow from '../../assets/img/Arrow.svg';
 import USA_flag from '../../assets/img/flag.svg';
@@ -13,8 +11,40 @@ import Yt from '../../assets/img/yt.svg';
 import X from '../../assets/img/X.svg';
 import Profiletab from '../profiletab/Profiletab';
 import { Link } from 'react-router-dom';
+import { AppContext } from '../../context/CreateContext';
+import { IMAGE_URL } from '../../Config';
+import profilimg from "../../assets/img/dummi.png"
+
+
+
 
 const Playerprofile = () => {
+
+    const { profilesInfo } = useContext(AppContext)
+    const [profileDAta, setProfileData] = useState([])
+
+
+
+ 
+    const findProfile = () => {
+
+        const matchingemail = JSON.parse(localStorage.getItem("user"))
+        if (matchingemail && profilesInfo) {
+            for (let i = 0; i < profilesInfo.length; i++) {
+                const matchprofile = profilesInfo[i]
+                if (matchprofile.email === matchingemail.email) {
+                    setProfileData(matchprofile)
+                }
+                break
+            }
+        }
+    }
+
+ 
+    useEffect(() => {
+        findProfile()
+    }, [profilesInfo])
+
     return (
         <>
             <section className="playerprofile_section">
@@ -32,12 +62,13 @@ const Playerprofile = () => {
                                         <div className='profile_content1'>
                                             <div className="playerprofile_profile_img">
                                                 <div className="playerprofile_profile_inner1">
-                                                    <img src={PP} alt="" />
+                                                   {profileDAta.image ? <img src={`${IMAGE_URL}/${profileDAta.image}`} alt="" />:
+                                                    <img src={profilimg} alt="image" />}
                                                     <span></span>
                                                 </div>
                                             </div>
                                             <div className="playerprofile_profile_card_title">
-                                                <h2>Zaytsev khair <img src={USA_flag} alt="" /></h2>
+                                                <h2>{profileDAta.name || "Your name"} <img src={USA_flag} alt="" /></h2>
                                                 <p><img src={Flag2} alt="" /> Carnegie Mellon University</p>
                                             </div>
                                         </div>
@@ -46,15 +77,15 @@ const Playerprofile = () => {
                                                 <div className="playerprofile_info_div">
                                                     <div>
                                                         <p>Height</p>
-                                                        <h6>6’4</h6>
+                                                        <h6>{profileDAta.height || 0}</h6>
                                                     </div>
                                                     <div>
                                                         <p>Weight</p>
-                                                        <h6>170lbs</h6>
+                                                        <h6>{profileDAta.weight || 0} lbs</h6>
                                                     </div>
                                                     <div style={{ borderRight: "none" }}>
                                                         <p>Year</p>
-                                                        <h6>2024</h6>
+                                                        <h6>{profileDAta.year || 0}</h6>
                                                     </div>
                                                 </div>
                                                 <div className="playerprofile_social_icons_main">
@@ -66,9 +97,9 @@ const Playerprofile = () => {
                                             </div>
                                         </div>
                                         <div>
-                                            <div class="video_tab_stat_card_body">
+                                            <div className="video_tab_stat_card_body">
                                                 <h5>2023-24 SEASON STATS</h5>
-                                                <div class="video_tab_stat_card_inner">
+                                                <div className="video_tab_stat_card_inner">
                                                     <div>
                                                         <p>PTS</p>
                                                         <h6>0.0</h6>
@@ -106,7 +137,7 @@ const Playerprofile = () => {
                             </div>
 
                         </div>
-                        <Profiletab />
+                        <Profiletab profileDAta={profileDAta}/>
                     </div>
                 </Container>
             </section>

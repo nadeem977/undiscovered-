@@ -17,15 +17,15 @@ const Footer = () => {
                     </div>
                     <div className="footer_links">
                         <Nav className="">
-                            <NavLink to="/" className="nav-link" activeClassName="active">Home</NavLink>
-                            <NavLink to="/about" className="nav-link" activeClassName="active">About Us</NavLink>
+                            <NavLink to="/" className="nav-link"  >Home</NavLink>
+                            <NavLink to="/about" className="nav-link  "  >About Us</NavLink>
                         </Nav>
                     </div>
                     <div className="footer_last_text_main">
                         <div className="footer_last1">
                             <Nav className="">
-                                <NavLink to="/about" className="nav-link" activeClassName="active">Privacy Policy</NavLink>
-                                <NavLink to="/about" className="nav-link" activeClassName="active">Terms & Condiotions</NavLink>
+                                <NavLink to="/about" className="nav-link"  >Privacy Policy</NavLink>
+                                <NavLink to="/about" className="nav-link"  >Terms & Condiotions</NavLink>
                             </Nav>
                            <p>2024. All Rights Reserved</p>
                         </div>
