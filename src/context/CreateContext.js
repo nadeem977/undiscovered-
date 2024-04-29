@@ -9,7 +9,7 @@ export const AppContextProvider = ({ children }) => {
 
   const [profilesInfo, setProfilesInfo] = useState([]);
   const [actvieprofile ,setActiveprofile] = useState(null)
- 
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     getProfileData();
     findProfile()
@@ -47,7 +47,8 @@ export const AppContextProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         profilesInfo,
-        actvieprofile ,setActiveprofile
+        actvieprofile ,setActiveprofile,
+        open, setOpen
       }}
     >
       {children}

@@ -4,8 +4,14 @@
 }
 .nav-tabs{
     border-bottom: none;
-    justify-content: center;
+    justify-content: space-between;
     gap: 20px;
+}
+.nav-tabs li button{
+    width:100% !important;
+}
+.nav-tabs li{
+    width: 20% !important;  
 }
 .nav-tabs .nav-link{
     border: none;

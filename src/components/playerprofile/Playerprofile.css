@@ -39,12 +39,7 @@
 .playerprofile_profile_card_title{
     margin-top: 5px;
 }
-.playerprofile_profile_card_title h2{
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 34px;
-    margin-bottom: 0;
-}
+ 
 .playerprofile_profile_card_title h2 img{
     height: 17px;
     padding-left: 8px;
@@ -90,10 +85,18 @@
 }
 .playerprofile_profile_card_inner{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 10px;
+ 
+}
+.hovring{
+    transition: all 0.4s;
+}
+.hovring:hover{
+    background-color: #FF3333;
+    color: white;
+
 }
 .playerprofile_profile_img{
     border: 6px solid #131416;
@@ -124,18 +127,33 @@
     top: 10px;
     right: 3px;
 }
+.mils{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 .playerprofile_social_icons_main{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 30px;
-    max-width: 300px;
-    margin-top: 30px;
+   gap: 10px;
+ 
 }
-.playerprofile_social_icons_main img{
-    height: 28px;
-    width: auto;
+.playerprofile_social_icons_main div{
+    width: 40px;
+    background-color: #F8F9FF;
+    border-radius: 50%;
+    border-radius: 50%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: all 0.4s;
     cursor: pointer;
+}
+.playerprofile_social_icons_main div:hover{
+    background-color: #d6dbf8;
 }
 .profile_followers_counter{
     display: flex;
@@ -144,9 +162,8 @@
     text-align: center;
     gap: 20px;
     width: 100%;
-    max-width: 240px;
-    margin: auto;
-    padding-top: 20px;
+    margin:2rem auto 0px auto;
+
 }
 .profile_followers_counter h6{
     font-weight: 800;
@@ -163,16 +180,11 @@
 
 }
 .profile_content1{
-    padding: 10px 0px;
-    border-right: 1px solid #9C9C9C;
-    padding-right: 50px;
-    min-height: 180px;
-    min-width: 240px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
 }
 .profile_content2{
-    border-right: 1px solid #9C9C9C;
-    padding: 0px 60px 0px 40px;
-    min-height: 220px;
     display: flex;
     align-items: center;
 }
@@ -182,7 +194,7 @@
     box-shadow: 0px 0px 13px 0px #0000000D;
     background: #FFFFFF;
     width: 100%;
-    max-width: 320px;
+ 
 }
 .video_tab_stat_card_body h5{
     margin-bottom: 0;
@@ -202,7 +214,6 @@
     text-align: center;
 }
 .video_tab_stat_card_inner div{
-    width: 100px;
     border-right: 1px solid #9C9C9C;
 }
 .video_tab_stat_card_inner p{
@@ -219,6 +230,30 @@
 .video_tab_stat_card_inner div:last-child {
     border-right: none;
 }
+
+.backimg{
+    font-size: 16px;
+    margin-bottom: 0;
+    padding: 5px 0;
+    position: relative;
+    top: -52px;
+    right: -24px;
+    color: white;
+    display: flex;
+    gap: 8px;
+    width: fit-content;
+    font-weight: 400 !important;
+}
+.imageName{
+    position: relative;
+    top: -24px;
+    right: 0px;
+    width: 167px;
+}
+
+
+
+
 @media (max-width:800px){
     .profile_content1{
         border: none;
