@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 import Container from 'react-bootstrap/Container';
@@ -11,7 +11,9 @@ import { AppContext } from '../../context/CreateContext';
 
 const Header = () => {
 
- 
+    const { userexist, setUserexist, isAdmin } = useContext(AppContext)
+
+
 
     return (
 
@@ -24,10 +26,15 @@ const Header = () => {
                     <Nav className="ms-auto">
                         <NavLink to="/" className="nav-link  " >Home</NavLink>
                         <NavLink to="/About" className="nav-link  " >About Us</NavLink>
-                        <NavLink to="/Playerprofile" className="nav-link  " >Players Info</NavLink>
+                        {isAdmin ? <NavLink to="/Dashboard" className="nav-link  " >Dashboard</NavLink>
+                            : <NavLink to="/Playerprofile" className="nav-link  " >Players Info</NavLink>}
                         <NavLink to="/PlearSearch" className="nav-link  " >Search Players</NavLink>
-                        <NavLink to="/profile" className="nav-link  " >Profile</NavLink>
-                        <NavLink to="/login"><Button className='navbar_btn'>Login</Button></NavLink>
+                        {/* <NavLink to="/profile" className="nav-link  " >Profile</NavLink> */}
+                        {userexist ? <NavLink><Button className='navbar_btn' onClick={() => {
+                            localStorage.removeItem("user")
+                            setUserexist(null)
+                        }}>Log out</Button></NavLink> :
+                            <NavLink to="/login"><Button className='navbar_btn'>Login</Button></NavLink>}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

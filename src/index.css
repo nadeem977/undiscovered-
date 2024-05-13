@@ -1,30 +1,185 @@
-
-.shoadows{
-box-shadow: 0px 0px 13px 0px #0000000D !important;
+.shoadows {
+  box-shadow: 0px 0px 13px 0px #0000000d !important;
 }
 
-
-.activeBtnin{
+.activeBtnin {
   background: red;
   height: 40px;
   z-index: -1;
   transition: all 0.4s ease;
 }
-.leftran{
+.leftran {
   transform: translateX(0);
 }
-.rightran{
+.rightran {
   transform: translateX(137%);
 }
-.acourdionshadow{
-  box-shadow: 0px 3px 26px 0px #0000000F;
+.acourdionshadow {
+  box-shadow: 0px 3px 26px 0px #0000000f;
+  border: none;
 }
-.accordion-button:not(.collapsed){
+.accordion-button:not(.collapsed) {
   box-shadow: none;
   outline: none;
   border-color: none;
   background-color: transparent;
 }
-.accordion-button:focus{
+.accordion-button:focus {
   box-shadow: none;
 }
+@media (max-width: 450px) {
+  .searchplay {
+    width: 50% !important;
+  }
+  .searchpro {
+    width: 50% !important;
+  }
+  .activeBtnin {
+    width: 50% !important;
+  }
+  .rightran {
+    transform: translateX(95%);
+  }
+}
+p {
+  line-height: normal !important;
+}
+.wraping {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.boxphoto {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.home_videos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.newTabe {
+  justify-content: flex-start !important;
+}
+.NEwsFeedsHome {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+.admin_cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.boxphoto .bi {
+  display: none;
+  position: absolute;
+  top: 0px;
+  z-index: 100000;
+  background-color: aliceblue;
+  padding: 5px;
+  border-radius: 4px 0 4px 0;
+  transition: all 0.4s;
+}
+.boxover {
+  position: relative;
+}
+.boxover:hover .bi {
+  display: block;
+}
+.wrapingBox {
+  flex-wrap: nowrap;
+}
+.inputWidth {
+  width: -webkit-fill-available;
+}
+.BGremov{
+  background-color: rgb(0, 0, 0,0.55);
+  transition: all 0.4s;
+  z-index: -1;
+}
+ 
+.hoverover:hover .BGremov{
+  z-index: 10;
+}
+.imagesgrid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.cards_div{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.shados{
+  box-shadow: 0px 5px 10px 0px #00000017;
+}
+.leading{
+  line-height: 1.5rem !important;
+}
+.css-1ex1afd-MuiTableCell-root{
+  border: none !important; 
+ 
+}
+table tbody{
+border-radius: 10px !important;
+}
+table td,th{
+  border: none !important; 
+}
+ .shadofeed{
+  box-shadow: 0px 0px 13px 0px #0000000F;
+ }
+.provingOffers {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: fit-content;
+}
+#checking{
+  accent-color: rgb(151, 234, 151);
+}
+ 
+.responsive{
+  overflow-x: scroll;
+ min-width: 500px;
+}
+.imagestab{
+  width: 300px;
+  height: 200px;
+}
+@media (max-width:1250px) {
+  .boxphoto {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .imagestab{
+    width: auto;
+
+  }
+}
+
+@media (max-width: 1167px) {
+  .wrapingBox {
+    flex-wrap: wrap !important;
+  }
+}
+
+@media (max-width: 850px) {
+  .cards_div,.NEwsFeedsHome,.home_videos {
+    grid-template-columns: repeat(2, 1fr);
+}
+ 
+}
+@media (max-width: 550px) {
+  .cards_div,.NEwsFeedsHome,.home_videos {
+    grid-template-columns: repeat(1, 1fr);
+}
+.boxphoto {
+  grid-template-columns: repeat(1, 1fr);
+}
+}
+

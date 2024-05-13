@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState } from 'react'
 import icon1 from '../../assets/img/Message.svg';
 import icon2 from '../../assets/img/Lock.svg';
 import { Link } from 'react-router-dom';
@@ -23,7 +23,6 @@ const MyLogin = () => {
 
 
     const LoginUser = async () => {
-        console.log(BAE_URL_API)
         try {
             const data = {
                 email: email,

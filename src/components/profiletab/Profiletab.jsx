@@ -1,457 +1,313 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import './Profiletab.css';
-import Video from '../../assets/img/video.svg';
-import Play from '../../assets/img/play.svg' ;
-import Last1 from '../../assets/img/last1.svg';
+import { BAE_URL_API, IMAGE_URL } from '../../Config';
+import axios from "axios"
+import { useSnackbar } from 'notistack';
+import { Link } from 'react-router-dom';
+import { AppContext } from '../../context/CreateContext';
+import UserDetails from '../details/UserDetails';
+import RelativePlayers from '../RelativePlayers/RelativePlayers';
+import BackupIcon from '@mui/icons-material/Backup';
 
 
 
 const Profiletab = ({ profileDAta }) => {
 
+    const { enqueueSnackbar } = useSnackbar();
+    const [CreatingOffers, setCreatingOffers] = useState(false)
+    const [UserLogin, setUserLogin] = useState(null)
+    const [CreateTable, setCreateTable] = useState(false)
+    const [selectSeason, setSelectSeason] = useState([])
+    const { getUserProfile, seasons, getvideo, getImages, getoffers, userexist } = useContext(AppContext)
+    const [creatingoffers, setCreatingoffers] = useState({ name: "", date: "" })
+    const [newSeason, setNewSeason] = useState({ season: "", role: "", team: "", city: "", result: "" })
 
-   
+
+
+    useEffect(() => {
+        var users = JSON.parse(localStorage.getItem("user"))
+        setUserLogin(users)
+        if (users?.email) {
+            getUserProfile()
+        }
+    }, [])
+
+    useEffect(() => {
+        if (seasons) { setSelectSeason(seasons[0]) }
+    }, [seasons])
+
+
     const scrollFunc = () => {
         setTimeout(() => {
             document.getElementById("scrolling").scrollIntoView({ behavior: "smooth" });
             document.getElementById("scrolling2").scrollIntoView({ behavior: "smooth" });
-            console.log("working ")
+            document.getElementById("scroling3").scrollIntoView({ behavior: "smooth" });
         }, 400);
     };
-    
+    const uploadingvideos = async (event) => {
+        const selectedFile = event.target.files[0]
+        if (selectedFile.type.slice(0, 5) === "video") {
+            var emails = JSON.parse(localStorage.getItem("user"))
+            if (selectedFile && emails.email) {
+                const data = {
+                    video: selectedFile,
+                    email: emails.email
+                }
+                try {
+                    const headers = { "Content-Type": "multipart/form-data" };
+                    await axios.post(`${BAE_URL_API}/UploadVideos`, data, { headers })
+                    getUserProfile()
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+        } else {
+            enqueueSnackbar("only video you can upload here", { variant: "error" })
+        }
+    }
+    const uploadigImages = async (event) => {
+        const selectedFile = event.target.files[0]
+        if (selectedFile.type.slice(0, 5) === "image") {
+            var emails = JSON.parse(localStorage.getItem("user"))
+            try {
+                if (selectedFile && emails) {
+                    const data = {
+                        email: emails.email,
+                        image: selectedFile
+                    }
+                    const headers = { "Content-Type": "multipart/form-data" };
+                    await axios.post(`${BAE_URL_API}/uploadImages`, data, { headers })
+                    getUserProfile()
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            enqueueSnackbar("only image you can upload here", { variant: "error" })
+        }
+    }
+    const deleteImages = async (img) => {
+        var emails = JSON.parse(localStorage.getItem("user"))
+        try {
+            const data = { email: emails.email, image: img }
+            await axios.post(`${BAE_URL_API}/RemovingImage`, data)
+            getUserProfile()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const deleteVideos = async (video) => {
+        var emails = JSON.parse(localStorage.getItem("user"))
+        try {
+            const data = { email: emails.email, video: video }
+            await axios.post(`${BAE_URL_API}/RemovingVideos`, data)
+            getUserProfile()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const CreateSeasontTable = async () => {
 
+        var emails = JSON.parse(localStorage.getItem("user"))
+        try {
+            const data = {
+                season: newSeason.season,
+                role: newSeason.role,
+                city: newSeason.city,
+                result: newSeason.result,
+                team: newSeason.team,
+                email: emails.email
+            }
+            const res = await axios.post(`${BAE_URL_API}/CreatingTable`, data)
+            setCreateTable(false)
+            setNewSeason((prev) => ({ ...prev, season: "", role: "", city: "", team: "", result: "" }))
+            getUserProfile()
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const SortFunc = (val) => {
+        for (let i = 0; i <= seasons?.length; i++) {
+            const data = seasons[i]
+            if (data.season === val) {
+                setSelectSeason(data)
+                break
+            }
+        }
+    }
+    const CreatingOffersUser = async () => {
+        try {
+            var emails = JSON.parse(localStorage.getItem("user"))
+            const data = { uniname: creatingoffers.name, date: creatingoffers.date, email: emails.email }
+            await axios.post(`${BAE_URL_API}/CreatingOffersUser`, data)
+            setCreatingoffers((prev) => ({ ...prev, name: "", date: "" }))
+            getUserProfile()
+            setCreatingOffers(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <section className="profiletab_section">
             <Container>
                 <div className="playerprofile_profile_tabs_main_div">
 
-                    <Tabs 
-                    onClick={scrollFunc}
+                    <Tabs
+                        onClick={scrollFunc}
                         defaultActiveKey="Videos"
                         transition={false}
                         id="noanim-tab-example"
                         className="mb-3" >
-
-
+                        <Tab eventKey="About" title="About">
+                            <div className='flex flex-col-reverse xl:flex-row gap-5'>
+                                <div className='sm:min-w-[200px] min-w-auto'>
+                                    <RelativePlayers year={profileDAta?.year} />
+                                </div>
+                                <div className='w-full'>
+                                    <UserDetails profileDAta={profileDAta} selectSeason={selectSeason}
+                                        CreateTable={CreateTable} seasons={seasons} setCreateTable={setCreateTable}
+                                        SortFunc={SortFunc} CreateSeasontTable={CreateSeasontTable}
+                                        newSeason={newSeason} setNewSeason={setNewSeason} />
+                                </div>
+                            </div>
+                        </Tab>
                         <Tab eventKey="Videos" title="Videos">
-                            <div className="video_tab_stat_card_body w-full mt-4">
-                                <h5>2023-24 SEASON STATS</h5>
-                                <div className="video_tab_stat_card_inner">
-                                    <div className='w-3/12'>
-                                        <p>PTS</p>
-                                        <h6>0.0</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>REB</p>
-                                        <h6>0.1</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>AST</p>
-                                        <h6>0.0</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>FG%</p>
-                                        <h6>0.0</h6>
-                                    </div>
+                            <div className='flex flex-col-reverse xl:flex-row gap-5'>
+                                <div className='sm:min-w-[200px] min-w-auto'>
+                                    <RelativePlayers year={profileDAta?.year} />
                                 </div>
-                            </div>
-
-                            <div className="video_tab_aboutplayer_card_body">
-                                <label htmlFor="">{profileDAta.name || "Name"}</label>
-                                <p>{profileDAta.aboutPlayr}</p>
-                                <div className="video_tab_aboutplayer_card_inner">
-                                    <h6>Current Team</h6>
-                                    <h5>{profileDAta.currentTeam}</h5>
-                                </div>
-                                <div className="video_tab_aboutplayer_card_inner">
-                                    <h6>Club</h6>
-                                    <h5>{profileDAta.club}</h5>
-                                </div>
-                                <div className="video_tab_aboutplayer_card_inner">
-                                    <h6>Specialization</h6>
-                                    <h5>{profileDAta.speciality}</h5>
-                                </div>
-                            </div>
-                            <div className="video_tab_team_card_body">
-                                <label htmlFor="">TEAMS</label>
-                                <div className="video_tab_team_card_inner">
-                                    <h5>Warriors Football Club</h5>
-                                    <p>Offensive Strategies  - 2016 - Present</p>
-                                </div>
-                                <div className="video_tab_team_card_inner">
-                                    <h5>University Eagles</h5>
-                                    <p>Offensive Strategies  - 2014 - 2016</p>
-                                </div>
-                            </div>
-                            <div className="video_tab_career_card_body">
-                                <div className='video_career_title'>
-                                    <label htmlFor="">CAREER TABLES</label>
-                                    <select className='form-select'>
-                                        <option value="Year">Year</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2024">2024</option>
-                                    </select>
-                                </div>
-                                <div className="video_tab_career_card_inner">
-                                    <h5>Season</h5>
-                                    <h6>{profileDAta.year}</h6>
-                                </div>
-                                <div className="video_tab_career_card_inner">
-                                    <h5>Role</h5>
-                                    <h6>{profileDAta.role}</h6>
-                                </div>
-                                <div className="video_tab_career_card_inner">
-                                    <h5>Team</h5>
-                                    <h6>{profileDAta.team}</h6>
-                                </div>
-                                <div className="video_tab_career_card_inner">
-                                    <h5>Division</h5>
-                                    <h6>{profileDAta.division}</h6>
-                                </div>
-                                <div className="video_tab_career_card_inner">
-                                    <h5>Result</h5>
-                                    <h6>{profileDAta.result}</h6>
-                                </div>
-                            </div>
-                            <div className="video_tab_last_videos_main">
-                                <Row>
-                                    {[1].map((_, i) => (
-                                        <Col lg="2" md="2" sm="4" xs="4" key={i}>
-                                            <div className="video_tab_last_video_div" id='scrolling'>
-                                                <img src={Video} className='image1' alt="" />
-                                                {/* <span><img src={Play} alt="" /> 12,2K</span> */}
+                                <div className="video_tab_last_videos_main w-full mt-3">
+                                    {profileDAta?.name ? <div className='flex items-center gap-2'>
+                                        <label htmlFor="videos" className="w-full py-4 mb-3 h-full rounded flex items-center justify-center border cursor-pointer hover:bg-[#F8F9FF]">
+                                            <span> <BackupIcon /> videos</span>
+                                            <input type="file" id='videos' className='hidden' onChange={uploadingvideos} />
+                                        </label>
+                                    </div> :
+                                        <Link to="/profile">
+                                            <div className="w-full mt-3 py-4 h-full rounded flex items-center justify-center border cursor-pointer hover:bg-[#F8F9FF]" onClick={() => setCreatingOffers(!CreatingOffers)}>
+                                                Create Profile
                                             </div>
-                                        </Col>
-                                    ))}
-                                </Row>
+                                        </Link>}
+                                    <div className='w-full boxphoto' id='scrolling'>
+                                        {getvideo?.map((item, i) => (
+                                            <div className="w-full h-fit m-1 boxover" key={i}>
+                                                <i className="bi bi-trash3 cursor-pointer" onClick={() => deleteVideos(item)}></i>
+                                                <video loop preload="auto" className='rounded w-full h-[200px] mb-1 object-cover' controls playsInline={true}>
+                                                    <source src={`${IMAGE_URL}/${item}`} type="video/mp4" />
+                                                </video>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                </div>
                             </div>
                         </Tab>
                         <Tab eventKey="Photos" title="Photos">
-                            <div className="video_tab_stat_card_body w-full mt-4">
-                                <h5>2023-24 SEASON STATS</h5>
-                                <div className="video_tab_stat_card_inner">
-                                    <div className='w-3/12'>
-                                        <p>PTS</p>
-                                        <h6>0.0</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>REB</p>
-                                        <h6>0.1</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>AST</p>
-                                        <h6>0.0</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>FG%</p>
-                                        <h6>0.0</h6>
-                                    </div>
+                            <div className='flex flex-col-reverse xl:flex-row gap-5'>
+                                <div className='sm:min-w-[200px] min-w-auto'>
+                                    <RelativePlayers year={profileDAta?.year} />
                                 </div>
-                            </div>
-
-                            <div className="video_tab_aboutplayer_card_body">
-                                <label htmlFor="">{profileDAta.name || "Name"}</label>
-                                <p>{profileDAta.aboutPlayr}</p>
-                                <div className="video_tab_aboutplayer_card_inner">
-                                    <h6>Current Team</h6>
-                                    <h5>{profileDAta.currentTeam}</h5>
-                                </div>
-                                <div className="video_tab_aboutplayer_card_inner">
-                                    <h6>Club</h6>
-                                    <h5>{profileDAta.club}</h5>
-                                </div>
-                                <div className="video_tab_aboutplayer_card_inner">
-                                    <h6>Specialization</h6>
-                                    <h5>{profileDAta.speciality}</h5>
-                                </div>
-                            </div>
-                            <div className="video_tab_team_card_body">
-                                <label htmlFor="">TEAMS</label>
-                                <div className="video_tab_team_card_inner">
-                                    <h5>Warriors Football Club</h5>
-                                    <p>Offensive Strategies  - 2016 - Present</p>
-                                </div>
-                                <div className="video_tab_team_card_inner">
-                                    <h5>University Eagles</h5>
-                                    <p>Offensive Strategies  - 2014 - 2016</p>
-                                </div>
-                            </div>
-                            <div className="video_tab_career_card_body">
-                                <div className='video_career_title'>
-                                    <label htmlFor="">CAREER TABLES</label>
-                                    <select className='form-select'>
-                                        <option value="Year">Year</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2024">2024</option>
-                                    </select>
-                                </div>
-                                <div className="video_tab_career_card_inner">
-                                    <h5>Season</h5>
-                                    <h6>{profileDAta.year}</h6>
-                                </div>
-                                <div className="video_tab_career_card_inner">
-                                    <h5>Role</h5>
-                                    <h6>{profileDAta.role}</h6>
-                                </div>
-                                <div className="video_tab_career_card_inner">
-                                    <h5>Team</h5>
-                                    <h6>{profileDAta.team}</h6>
-                                </div>
-                                <div className="video_tab_career_card_inner">
-                                    <h5>Division</h5>
-                                    <h6>{profileDAta.division}</h6>
-                                </div>
-                                <div className="video_tab_career_card_inner">
-                                    <h5>Result</h5>
-                                    <h6>{profileDAta.result}</h6>
-                                </div>
-                            </div>
-                            <div className="video_tab_last_videos_main">
-                                <Row>
-                                    {[1].map((_, i) => (
-                                        <Col lg="2" md="2" sm="4" xs="4" key={i}>
-                                            <div className="video_tab_last_video_div" id='scrolling2'>
-                                                <img src={Video} className='image1' alt="" />
-                                                {/* <span><img src={Play} alt="" /> 12,2K</span> */}
+                                <div className='w-full'>
+                                    {profileDAta?.name ? <label htmlFor="Images" className="w-full py-4  mt-3  rounded flex items-center justify-center border cursor-pointer hover:bg-[#F8F9FF]">
+                                        <span> <BackupIcon /> images</span>
+                                        <input type="file" id='Images' className='hidden' onChange={uploadigImages} />
+                                    </label> :
+                                        <Link to="/profile">
+                                            <div className="w-full mt-3 py-4 h-full rounded flex items-center justify-center border cursor-pointer hover:bg-[#F8F9FF]" onClick={() => setCreatingOffers(!CreatingOffers)}>
+                                                Create Profile
                                             </div>
-                                        </Col>
-                                    ))}
-
-                                </Row>
+                                        </Link>}
+                                    <div className='w-full mt-3 boxphoto' id='scrolling2'>
+                                        {getImages?.map((item, i) => (
+                                            <div className="w-fit boxover"
+                                                key={i} onClick={() => deleteImages(item)}>
+                                                <i className="bi bi-trash3 cursor-pointer"></i>
+                                                <img src={`${IMAGE_URL}/${item}`} alt="images"
+                                                    className='rounded imagestab mb-1 object-cover' />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </Tab>
                         <Tab eventKey="Offers" title="Offers">
-                            <div className="video_tab_stat_card_body w-full mt-4">
-                                <h5>2023-24 SEASON STATS</h5>
-                                <div className="video_tab_stat_card_inner">
-                                    <div className='w-3/12'>
-                                        <p>PTS</p>
-                                        <h6>0.0</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>REB</p>
-                                        <h6>0.1</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>AST</p>
-                                        <h6>0.0</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>FG%</p>
-                                        <h6>0.0</h6>
-                                    </div>
+                            <div className='flex flex-col-reverse xl:flex-row gap-5'>
+                                <div className='sm:min-w-[200px] min-w-auto'>
+                                    <RelativePlayers year={profileDAta?.year} />
                                 </div>
-                            </div>
-                            <div className="video_tab_content_main">
-                                <div className="video_tab_aboutplayer_card_body">
-                                    <label htmlFor="">{profileDAta.name || "Name"}</label>
-                                    <p>{profileDAta.aboutPlayr}</p>
-                                    <div className="video_tab_aboutplayer_card_inner">
-                                        <h6>Current Team</h6>
-                                        <h5>{profileDAta.currentTeam}</h5>
-                                    </div>
-                                    <div className="video_tab_aboutplayer_card_inner">
-                                        <h6>Club</h6>
-                                        <h5>{profileDAta.club}</h5>
-                                    </div>
-                                    <div className="video_tab_aboutplayer_card_inner">
-                                        <h6>Specialization</h6>
-                                        <h5>{profileDAta.speciality}</h5>
-                                    </div>
-                                </div>
-                                <div className="video_tab_team_card_body">
-                                    <label htmlFor="">TEAMS</label>
-                                    <div className="video_tab_team_card_inner">
-                                        <h5>Warriors Football Club</h5>
-                                        <p>Offensive Strategies  - 2016 - Present</p>
-                                    </div>
-                                    <div className="video_tab_team_card_inner">
-                                        <h5>University Eagles</h5>
-                                        <p>Offensive Strategies  - 2014 - 2016</p>
-                                    </div>
-                                </div>
-                                <div className="video_tab_career_card_body">
-                                    <div className='video_career_title'>
-                                        <label htmlFor="">CAREER TABLES</label>
-                                        <select className='form-select'>
-                                            <option value="Year">Year</option>
-                                            <option value="2018">2018</option>
-                                            <option value="2018">2018</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2024">2024</option>
-                                        </select>
-                                    </div>
-                                    <div className="video_tab_career_card_inner">
-                                        <h5>Season</h5>
-                                        <h6>{profileDAta.year}</h6>
-                                    </div>
-                                    <div className="video_tab_career_card_inner">
-                                        <h5>Role</h5>
-                                        <h6>{profileDAta.role}</h6>
-                                    </div>
-                                    <div className="video_tab_career_card_inner">
-                                        <h5>Team</h5>
-                                        <h6>{profileDAta.team}</h6>
-                                    </div>
-                                    <div className="video_tab_career_card_inner">
-                                        <h5>Division</h5>
-                                        <h6>{profileDAta.division}</h6>
-                                    </div>
-                                    <div className="video_tab_career_card_inner">
-                                        <h5>Result</h5>
-                                        <h6>{profileDAta.result}</h6>
-                                    </div>
-                                </div>
-
-                                <div className="offers_tab_last_cards_main_div">
-                                    <Row>
-                                        {[1, 2, 3, 4, 5, 6].map((item, i) => (
-                                            <Col lg="4" md="6" sm="12" key={i}>
-                                                <div className="offers_tab_last_card_body">
+                                <div className='w-full'>
+                                    {profileDAta?.name ? <div className="w-full mt-3 py-4 rounded flex items-center justify-center border cursor-pointer hover:bg-[#F8F9FF]" onClick={() => setCreatingOffers(!CreatingOffers)}>
+                                        Create offers
+                                    </div> :
+                                        <Link to="/profile">
+                                            <div className="w-full mt-3 py-4 h-full rounded flex items-center justify-center border cursor-pointer hover:bg-[#F8F9FF]" onClick={() => setCreatingOffers(!CreatingOffers)}>
+                                                Create Profile
+                                            </div>
+                                        </Link>}
+                                    {CreatingOffers ? <div className='border rounded p-3 mt-2 flex items-center gap-1'>
+                                        <input type="text" className='w-4/12 p-2 border rounded outline-none '
+                                            placeholder='university'
+                                            value={creatingoffers.name}
+                                            onChange={(e) => setCreatingoffers((prev) => ({ ...prev, name: e.target.value }))} />
+                                        <input type="date" className='w-4/12 p-2 border rounded outline-none '
+                                            value={creatingoffers.date}
+                                            onChange={(e) => setCreatingoffers((prev) => ({ ...prev, date: e.target.value }))} />
+                                        <button className='w-4/12 p-2 border rounded outline-none hover:bg-[#F8F9FF]'
+                                            onClick={CreatingOffersUser}>Add offers</button>
+                                    </div> : null}
+                                    <div className="offers_tab_last_cards_main_div mt-3" id='scroling3'>
+                                        {getoffers?.map((item, i) => {
+                                            const date = new Date(item?.date);
+                                            const formattedDate = `${date.getDate()} ${new Intl.DateTimeFormat('en', { month: 'short' }).format(date)} ${date.getFullYear()}`;
+                                            return (
+                                                <div className="offers_tab_last_card_body my-2 hover:bg-slate-100" key={i}>
                                                     <div className='offers_tab_last_inner1'>
-                                                        <div className="offers_tab_last_inner1_img">
-                                                            <img src={Last1} alt="" />
-                                                        </div>
-                                                        <div className="offers_tab_last_inner1_text">
-                                                            <h4>Wake Forest University</h4>
-                                                            <p>10 March, 2024</p>
+                                                        <img src={`${IMAGE_URL}/${userexist}/${item.img}`} alt="U" className='w-[50px] h-[50px] rounded-full object-cover' />
+                                                        <div>
+                                                            <h4 className='capitalize text-[15px] sm:text-xl'>{item.uniname}</h4>
+                                                            <p className='text-[14px] sm:text-sm'>{formattedDate}</p>
                                                         </div>
                                                     </div>
-                                                    <div className="offers_tab_last_card_btn">
-                                                        <button type='button'><span></span> Offered</button>
+                                                    <div className="flex items-center">
+                                                        {item.verify ?
+                                                            <button type='button' className='bg-gray-200 py-1 px-3 rounded-full flex items-center gap-2 text-sm'>
+                                                                <div className='p-1 bg-green-500 rounded-full w-fit'></div>Offered</button> :
+                                                            <button type='button' className='bg-gray-200 text-sm py-1 px-3 rounded-full flex items-center gap-2'>
+                                                                <div className='p-1 bg-red-500 rounded-full w-fit'></div> Transferred </button>}
                                                     </div>
                                                 </div>
-                                            </Col>
-                                        ))}
-                                    </Row>
+                                            );
+                                        })}
+
+                                    </div>
                                 </div>
                             </div>
+
+
                         </Tab>
-                        <Tab eventKey="News feed" title="News feed">
-                            <div className="video_tab_stat_card_body w-full mt-4">
-                                <h5>2023-24 SEASON STATS</h5>
-                                <div className="video_tab_stat_card_inner">
-                                    <div className='w-3/12'>
-                                        <p>PTS</p>
-                                        <h6>0.0</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>REB</p>
-                                        <h6>0.1</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>AST</p>
-                                        <h6>0.0</h6>
-                                    </div>
-                                    <div className='w-3/12'>
-                                        <p>FG%</p>
-                                        <h6>0.0</h6>
-                                    </div>
+                        <Tab eventKey="News" title="News feed">
+                            <div className='flex flex-col-reverse xl:flex-row gap-5'>
+                                <div className='sm:min-w-[200px] min-w-auto'>
+                                    <RelativePlayers year={profileDAta?.year} />
                                 </div>
-                            </div>
-                            <div className="video_tab_content_main">
-                                <div className="video_tab_aboutplayer_card_body">
-                                    <label htmlFor="">{profileDAta.name || "Name"}</label>
-                                    <p>{profileDAta.aboutPlayr}</p>
-                                    <div className="video_tab_aboutplayer_card_inner">
-                                        <h6>Current Team</h6>
-                                        <h5>{profileDAta.currentTeam}</h5>
-                                    </div>
-                                    <div className="video_tab_aboutplayer_card_inner">
-                                        <h6>Club</h6>
-                                        <h5>{profileDAta.club}</h5>
-                                    </div>
-                                    <div className="video_tab_aboutplayer_card_inner">
-                                        <h6>Specialization</h6>
-                                        <h5>{profileDAta.speciality}</h5>
-                                    </div>
-                                </div>
-                                <div className="video_tab_team_card_body">
-                                    <label htmlFor="">TEAMS</label>
-                                    <div className="video_tab_team_card_inner">
-                                        <h5>Warriors Football Club</h5>
-                                        <p>Offensive Strategies  - 2016 - Present</p>
-                                    </div>
-                                    <div className="video_tab_team_card_inner">
-                                        <h5>University Eagles</h5>
-                                        <p>Offensive Strategies  - 2014 - 2016</p>
-                                    </div>
-                                </div>
-                                <div className="video_tab_career_card_body">
-                                    <div className='video_career_title'>
-                                        <label htmlFor="">CAREER TABLES</label>
-                                        <select className='form-select'>
-                                            <option value="Year">Year</option>
-                                            <option value="2018">2018</option>
-                                            <option value="2018">2018</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2024">2024</option>
-                                        </select>
-                                    </div>
-                                    <div className="video_tab_career_card_inner">
-                                        <h5>Season</h5>
-                                        <h6>{profileDAta.year}</h6>
-                                    </div>
-                                    <div className="video_tab_career_card_inner">
-                                        <h5>Role</h5>
-                                        <h6>{profileDAta.role}</h6>
-                                    </div>
-                                    <div className="video_tab_career_card_inner">
-                                        <h5>Team</h5>
-                                        <h6>{profileDAta.team}</h6>
-                                    </div>
-                                    <div className="video_tab_career_card_inner">
-                                        <h5>Division</h5>
-                                        <h6>{profileDAta.division}</h6>
-                                    </div>
-                                    <div className="video_tab_career_card_inner">
-                                        <h5>Result</h5>
-                                        <h6>{profileDAta.result}</h6>
-                                    </div>
-                                </div>
-
-                                <div className="offers_tab_last_cards_main_div">
-                                    <Row>
-                                        {[1, 2, 3, 4, 5, 6].map((item, i) => (
-                                            <Col lg="4" md="6" sm="12" key={i}>
-                                                <div className="offers_tab_last_card_body">
-                                                    <div className='offers_tab_last_inner1'>
-                                                        <div className="offers_tab_last_inner1_img">
-                                                            <img src={Last1} alt="" />
-                                                        </div>
-                                                        <div className="offers_tab_last_inner1_text">
-                                                            <h4>Wake Forest University</h4>
-                                                            <p>10 March, 2024</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="offers_tab_last_card_btn">
-                                                        <button type='button'><span></span> Offered</button>
-                                                    </div>
+                                <div className='w-full'>
+                                    {profileDAta?.Article?.map((item, i) => {
+                                        const date = new Date(item.createdAt);
+                                        const formattedDate = `${date.getDate()} ${new Intl.DateTimeFormat('en', { month: 'short' }).format(date)} ${date.getFullYear()}`;
+                                        return (
+                                            <Link to={`/ShowArticle/${profileDAta?._id}/${item?._id}`} key={i}>
+                                                <div className='w-ful shadofeed p-3 rounded'>
+                                                    <h1>{item?.title}</h1>
+                                                    <p className='mt-2 text-sm'>{formattedDate}</p>
                                                 </div>
-                                            </Col>
-                                        ))}
-                                    </Row>
+                                            </Link>
+                                        )
+                                    })}
                                 </div>
                             </div>
                         </Tab>

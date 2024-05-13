@@ -11,7 +11,7 @@
     width:100% !important;
 }
 .nav-tabs li{
-    width: 20% !important;  
+    width: 18% !important;  
 }
 .nav-tabs .nav-link{
     border: none;
@@ -191,9 +191,7 @@
 
 
 /* Last_Videos ==================*/
-.video_tab_last_videos_main{
-    margin-top: 40px;
-}
+
 .video_tab_last_video_div{
     position: relative;
 }
@@ -217,12 +215,10 @@
 .video_tab_last_videos_main .col-lg-2{
     padding: 2px;
 }
-.offers_tab_last_cards_main_div{
-    margin-top: 40px;
-}
+
 .offers_tab_last_inner1{
     display: flex;
-    gap: 5px;
+    gap: 15px;
     align-items: center;
 }
 .offers_tab_last_inner1_img{
@@ -245,7 +241,6 @@
     flex-wrap: wrap;
     align-items: end;
     gap: 10px;
-    margin-top: 25px;
     padding: 15px 8px;
     border-radius: 14px;
 }
@@ -270,7 +265,7 @@
     padding: 4px 10px 4px 10px;
     gap: 4px;
     border-radius: 30px;
-    background: #F1F1F1;
+    /* background: #F1F1F1; */
     font-family: "Poppins", sans-serif;
     border: none;
     font-size: 12px;
@@ -379,6 +374,13 @@
         line-height: 24px;
     }
 }
+@media (max-width:450px) {
+ 
+    .nav-tabs li {
+        width:auto !important;
+    }
+}
+
 @media (max-width:360px){
     .video_tab_career_card_inner h6{
         font-size: 12px !important;
