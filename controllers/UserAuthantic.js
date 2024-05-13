@@ -34,7 +34,7 @@ const LoginUser = async (req,res)=>{
         }else{ 
             res.status(404).send("User with this email does not exist.")
         }
-    } catch (error) {
+    } catch (error) { 
         console.log(error)
         res.status(500).send(error)
     }  

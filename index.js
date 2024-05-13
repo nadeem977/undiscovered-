@@ -4,6 +4,8 @@ const dotenv = require("dotenv")
 const cors = require("cors")
 const AuthRoute = require("./routes/AuthRoute")
 const ProfileRoute = require("./routes/ProfileRouter")
+ 
+
 
 const app = express()
 dotenv.config();
@@ -25,6 +27,7 @@ const ConnectMongoDb = async()=>{
 
 app.use("/api",AuthRoute)
 app.use("/api",ProfileRoute)
+ 
 
 
 app.listen(8000, ()=>{
