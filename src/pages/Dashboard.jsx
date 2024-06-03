@@ -91,7 +91,7 @@ const Dashboard = () => {
                                     {
                                         item.Article.length > 0 && (
                                             <Link to={`/ShowArticle/${item._id}/${item.Article[0]._id}`}>
-                                                <button className='bg-green-100 p-1 rounded-full px-4'>
+                                                <button className='bg-blue-100 p-1 rounded-full px-4'>
                                                     {item.Article.length} Articles
                                                 </button>
                                             </Link>

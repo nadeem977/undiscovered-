@@ -110,12 +110,12 @@ const PlearSearch = () => {
                                     <Table aria-label="collapsible table">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell><p className='text-xl font-[600]'>Ranking</p></TableCell>
-                                                <TableCell><p className='text-xl font-[600]'>Player Name</p></TableCell>
-                                                <TableCell><p className='text-xl font-[600]'>Class</p></TableCell>
-                                                <TableCell><p className='text-xl font-[600]'>Height</p></TableCell>
-                                                <TableCell><p className='text-xl font-[600]'>Position</p></TableCell>
-                                                <TableCell><p className='text-xl font-[600]'>Star Rating</p></TableCell>
+                                                <TableCell><p className='text-[16px] font-[500]'>Ranking</p></TableCell>
+                                                <TableCell><p className='text-[16px] font-[500]'>Player Name</p></TableCell>
+                                                <TableCell><p className='text-[16px] font-[500]'>Class</p></TableCell>
+                                                <TableCell><p className='text-[16px] font-[500]'>Height</p></TableCell>
+                                                <TableCell><p className='text-[16px] font-[500]'>Position</p></TableCell>
+                                                <TableCell><p className='text-[16px] font-[500]'>Star Rating</p></TableCell>
                                                 <TableCell></TableCell>
                                             </TableRow>
                                         </TableHead>
@@ -130,14 +130,14 @@ const PlearSearch = () => {
                                                                   </Link>
                                                                    </div>
                                                     </TableCell>
-                                                    <TableCell><p className='text-[17px] font-[600]'>{item.name}</p></TableCell>
-                                                    <TableCell><p className='text-[17px] font-[600]'>{item.year}</p></TableCell>
-                                                    <TableCell><p className='text-[17px] font-[600]'>{item.height}</p></TableCell>
-                                                    <TableCell><p className='text-[17px] font-[600]'>PG</p></TableCell>
+                                                    <TableCell><Link to={`/ViewProfile/${item._id}`}><p className='text-[16px] font-[500]'>{item.name}</p></Link></TableCell>
+                                                    <TableCell><p className='text-[16px] font-[500]'>{item.year}</p></TableCell>
+                                                    <TableCell><p className='text-[16px] font-[500]'>{item.height}</p></TableCell>
+                                                    <TableCell><p className='text-[16px] font-[500]'>PG</p></TableCell>
                                                     <TableCell><Rating name="size-medium" defaultValue={5} /></TableCell>
                                                     <TableCell>
                                                       <div className='flex items-center'>
-                                                      <p className='text-[17px] font-[500]'>view more</p>
+                                                      <p className='text-[16px] font-[500]'>view more</p>
                                                         <IconButton aria-label="expand row" size="small" onClick={() => handelExpend(item)}>
                                                             {accordion.Id === item._id ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                                                         </IconButton>
@@ -152,7 +152,7 @@ const PlearSearch = () => {
                                                                     <div key={i}>
                                                                         {ofer.verify ? <div className='text-center flex flex-col gap-2 h-[100px] justify-between'>
                                                                             <img src={`${IMAGE_URL}/${item.email}/${ofer.img}`} alt="" className='m-auto w-[60px] h-[60px] object-cover rounded-full' />
-                                                                            <p className='font-bold capitalize text-xl'>{ofer.uniname}</p>
+                                                                            <p className='font-bold capitalize text-[16px]'>{ofer.uniname}</p>
                                                                         </div> : null}
                                                                     </div>
                                                                 ))}

@@ -19,11 +19,12 @@ import axios from "axios"
 import ViewDetails from '../components/details/ViewDetails';
 import AproveingOffers from '../components/AprovingOffers/AproveingOffers';
 import RelativePlayers from '../components/RelativePlayers/RelativePlayers';
+import SocialModal from '../components/socialModal/SocialModal';
 
 
 const ViewProfile = () => {
 
-    const { isAdmin, preving } = useContext(AppContext)
+    const { isAdmin, preving ,userexist} = useContext(AppContext)
     const [profileDAta, setProfileData] = useState([])
     const [seasons, setSeasons] = useState([])
     const [getvideo, setGetvideo] = useState([])
@@ -34,11 +35,11 @@ const ViewProfile = () => {
     const [proving, setAproving] = useState({ edit: false, name: "", date: "", varify: false, Id: "", logo: "", img: "", email: "" })
     const { id } = useParams();
     const [countPosts, setCountPosts] = useState({ imgCnt: 0, vdoCnt: 0 });
- 
+
     useEffect(() => {
         setCountPosts((prev) => ({ ...prev, vdoCnt: 0, imgCnt: 0 }));
         getUserProfile()
-    }, [preving,id])
+    }, [preving, id])
 
     useEffect(() => {
         setSelectSeason(seasons[0])
@@ -115,34 +116,35 @@ const ViewProfile = () => {
                                             <div className='mils capitalize text-gray-500'>
                                                 {profileDAta.university || "University"} </div>
 
-                                            <div className="playerprofile_social_icons_main flex items-center gap-3 ">
-                                                <div className='p-[15px]'>
-                                                    <img src={Fb} alt="" /></div>
-                                                <div><img src={Insta} alt="" /></div>
-                                                <div><img src={Yt} alt="" /></div>
-                                                <div> <img src={X} alt="" /></div>
-                                            </div>
-                                            <div className='profile_content2'>
+                                            {profileDAta.facebook || profileDAta.instagram || profileDAta.youtube || profileDAta.twitter ?
+
+                                                <div className="playerprofile_social_icons_main flex items-center gap-4">
+                                                    {profileDAta.facebook && <Link to={`${profileDAta.facebook}`}><div className='p-[15px]'><img src={Fb} alt="" /></div></Link>}
+                                                    {profileDAta.instagram && <Link to={`${profileDAta.instagram}`}><div><img src={Insta} alt="" /></div></Link>}
+                                                    {profileDAta.youtube && <Link to={`${profileDAta.youtube}`}><div><img src={Yt} alt="" /></div></Link>}
+                                                    {profileDAta.twitter && <Link to={`${profileDAta.twitter}`}><div> <img src={X} alt="" /></div></Link>}
+                                                </div>
+
+                                                : <>{userexist === profileDAta?.email && <SocialModal/>}</>}
+                                            <div className="playerprofile_info_div">
                                                 <div>
-                                                    <div className="playerprofile_info_div">
-                                                        <div>
-                                                            <p>Height</p>
-                                                            <h6>{profileDAta.height || 0}</h6>
-                                                        </div>
-                                                        <div>
-                                                            <p>Weight</p>
-                                                            <h6>{profileDAta.weight || 0} lbs</h6>
-                                                        </div>
-                                                        <div style={{ borderRight: "none" }}>
-                                                            <p>Year</p>
-                                                            <h6>{profileDAta.year || 0}</h6>
-                                                        </div>
-                                                        <div>
+                                                    <p>Height</p>
+                                                    <h6>{profileDAta.height || 0}</h6>
+                                                </div>
+                                                <p className='border-r border-r-[#6E779A33] h-[40px] ' />
+                                                <div>
+                                                    <p>Weight</p>
+                                                    <h6>{profileDAta.weight || 0} lbs</h6>
+                                                </div>
+                                                <p className='border-r border-r-[#6E779A33] h-[40px] ' />
+                                                <div style={{ borderRight: "none" }}>
+                                                    <p>Year</p>
+                                                    <h6>{profileDAta.year || 0}</h6>
+                                                </div>
+                                                {/* <div>
                                                             <h6>{countPosts.imgCnt + countPosts.vdoCnt || 0}</h6>
                                                             <p>Posts</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        </div> */}
                                             </div>
                                         </div>
                                     </div>
@@ -186,8 +188,8 @@ const ViewProfile = () => {
                                     id="noanim-tab-example"
                                     className="mb-3" >
                                     <Tab eventKey="About" title="About">
-                                       <div className='flex flex-col-reverse xl:flex-row gap-5'>
-                                             <div className='sm:min-w-[200px] min-w-auto'>
+                                        <div className='flex flex-col-reverse xl:flex-row gap-5'>
+                                            <div className='sm:min-w-[200px] min-w-auto'>
                                                 <RelativePlayers />
                                             </div>
                                             <div className='w-full'>
@@ -198,8 +200,8 @@ const ViewProfile = () => {
                                         </div>
                                     </Tab>
                                     <Tab eventKey="Videos" title="Videos">
-                                       <div className='flex flex-col-reverse xl:flex-row gap-5'>
-                                              <div className='sm:min-w-[200px] min-w-auto'>
+                                        <div className='flex flex-col-reverse xl:flex-row gap-5'>
+                                            <div className='sm:min-w-[200px] min-w-auto'>
                                                 <RelativePlayers />
                                             </div>
                                             <div className="video_tab_last_videos_main mt-3 w-full">
@@ -216,8 +218,8 @@ const ViewProfile = () => {
                                         </div>
                                     </Tab>
                                     <Tab eventKey="Photos" title="Photos">
-                                    <div className='flex flex-col-reverse xl:flex-row gap-5'>
-                                              <div className='sm:min-w-[200px] min-w-auto'>
+                                        <div className='flex flex-col-reverse xl:flex-row gap-5'>
+                                            <div className='sm:min-w-[200px] min-w-auto'>
                                                 <RelativePlayers />
                                             </div>
                                             <div className='w-full mt-3 boxphoto ' id='scrolling2'>
@@ -231,14 +233,15 @@ const ViewProfile = () => {
                                     </Tab>
                                     <Tab eventKey="Offers" title="Offers">
 
-                                       <div className='flex flex-col-reverse xl:flex-row gap-5'>
-                                              <div className='sm:min-w-[200px] min-w-auto'>
+                                        <div className='flex flex-col-reverse xl:flex-row gap-5'>
+                                            <div className='sm:min-w-[200px] min-w-auto'>
                                                 <RelativePlayers />
                                             </div>
                                             <div className="offers_tab_last_cards_main_div mt-3 w-full" id='scroling3'>
                                                 {getoffers?.map((item, i) => {
                                                     const date = new Date(item?.date);
-                                                    const formattedDate = `${date.getDate()} ${new Intl.DateTimeFormat('en', { month: 'short' }).format(date)} ${date.getFullYear()}`;
+                                                    const formattedDate = `${new Intl.DateTimeFormat('en', { month: 'short' }).format(date)} ${date.getDate()} ${date.getFullYear()}`;
+
                                                     return (
                                                         item.verify ? (
 
@@ -246,8 +249,8 @@ const ViewProfile = () => {
                                                                 <div className='offers_tab_last_inner1'>
                                                                     <img src={`${IMAGE_URL}/${profilUserEmail}/${item.img}`} alt="User" className='w-[50px] h-[50px] rounded-full object-cover' />
                                                                     <div >
-                                                                        <h4 className='capitalize text-xl'>{item.uniname}</h4>
-                                                                        <p>{formattedDate}</p>
+                                                                        <h4 className='capitalize text-[14px]'>{item.uniname}</h4>
+                                                                        <p className='text-[12px] mt-1'>{formattedDate}</p>
                                                                     </div>
                                                                 </div>
                                                                 <div>
@@ -261,8 +264,8 @@ const ViewProfile = () => {
                                                             <div className='offers_tab_last_inner1'>
                                                                 <img src={`${IMAGE_URL}/${profilUserEmail}/${item.img}`} alt="User" className='w-[50px] h-[50px] rounded-full object-cover' />
                                                                 <div>
-                                                                    <h4 className='capitalize text-xl'>{item.uniname}</h4>
-                                                                    <p>{formattedDate}</p>
+                                                                    <h4 className='capitalize text-[14px]'>{item.uniname}</h4>
+                                                                    <p className='text-[12px]'>{formattedDate}</p>
                                                                 </div>
                                                             </div>
                                                             <div >
@@ -284,14 +287,14 @@ const ViewProfile = () => {
                                     </Tab>
                                     <Tab eventKey="news" title="News feed">
 
-                                       <div className='flex flex-col-reverse xl:flex-row gap-5'>
-                                              <div className='sm:min-w-[200px] min-w-auto'>
+                                        <div className='flex flex-col-reverse xl:flex-row gap-5'>
+                                            <div className='sm:min-w-[200px] min-w-auto'>
                                                 <RelativePlayers />
                                             </div>
                                             <div className='w-full'>
                                                 {profileDAta?.Article?.map((item, i) => {
                                                     const date = new Date(item.createdAt);
-                                                    const formattedDate = `${date.getDate()} ${new Intl.DateTimeFormat('en', { month: 'short' }).format(date)} ${date.getFullYear()}`;
+                                                    const formattedDate = `${new Intl.DateTimeFormat('en', { month: 'short' }).format(date)} ${date.getDate()} ${date.getFullYear()}`;
                                                     return (
                                                         <Link to={`/ShowArticle/${profileDAta?._id}/${item?._id}`} key={i}>
                                                             <div className='w-ful shadofeed p-3 rounded'>

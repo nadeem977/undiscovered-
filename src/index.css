@@ -152,6 +152,11 @@ table td,th{
   width: 300px;
   height: 200px;
 }
+.hoverEfct:hover .hoverginwork{
+  /* transition: all 0.4s; */
+  display: flex !important;
+}
+
 @media (max-width:1250px) {
   .boxphoto {
     grid-template-columns: repeat(2, 1fr);
@@ -180,6 +185,12 @@ table td,th{
 }
 .boxphoto {
   grid-template-columns: repeat(1, 1fr);
+}
+.mils{
+  justify-content: center;
+}
+.playerprofile_social_icons_main{
+  justify-content: center;
 }
 }
 

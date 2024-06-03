@@ -262,15 +262,16 @@ const Profiletab = ({ profileDAta }) => {
                                     </div> : null}
                                     <div className="offers_tab_last_cards_main_div mt-3" id='scroling3'>
                                         {getoffers?.map((item, i) => {
-                                            const date = new Date(item?.date);
-                                            const formattedDate = `${date.getDate()} ${new Intl.DateTimeFormat('en', { month: 'short' }).format(date)} ${date.getFullYear()}`;
+                                           const date = new Date(item?.date);
+                                           const formattedDate = `${new Intl.DateTimeFormat('en', { month: 'short' }).format(date)} ${date.getDate()} ${date.getFullYear()}`;
+                                           
                                             return (
                                                 <div className="offers_tab_last_card_body my-2 hover:bg-slate-100" key={i}>
                                                     <div className='offers_tab_last_inner1'>
                                                         <img src={`${IMAGE_URL}/${userexist}/${item.img}`} alt="U" className='w-[50px] h-[50px] rounded-full object-cover' />
                                                         <div>
-                                                            <h4 className='capitalize text-[15px] sm:text-xl'>{item.uniname}</h4>
-                                                            <p className='text-[14px] sm:text-sm'>{formattedDate}</p>
+                                                        <h4 className='capitalize text-[14px]'>{item.uniname}</h4>
+                                                                    <p className='text-[12px] mt-1'>{formattedDate}</p>
                                                         </div>
                                                     </div>
                                                     <div className="flex items-center">

@@ -14,19 +14,20 @@ import profilimg from "../../assets/img/dummi.png"
 import nameplat from "../../assets/img/plt.svg"
 import varifyingimg from "../../assets/img/verify.svg"
 import axios from "axios"
+import SocialModal from '../socialModal/SocialModal';
 
 
 const Playerprofile = () => {
 
-    const { setEditableData, userexist,getUserProfile,profileDAta,countPosts } = useContext(AppContext)
-   
+    const { setEditableData, userexist, getUserProfile, profileDAta, countPosts } = useContext(AppContext)
+
     useEffect(() => {
         getUserProfile()
     }, [])
 
     const Deleteprofile = async (Id, image) => {
         try {
-            const data = {Id: Id, image: image }
+            const data = { Id: Id, image: image }
             await axios.post(`${BAE_URL_API}/deleteProfile`, data)
             setEditableData()
             window.location.reload();
@@ -60,7 +61,7 @@ const Playerprofile = () => {
                                                 <img src={nameplat} alt="image" className='imageName' />
                                                 <h2 className='backimg '>
                                                     {/* <img src={USA_flag} alt="" /> */}
-                                                    {profileDAta.role || "role"}</h2>
+                                                    {profileDAta?.role?.slice(0,10) || "role"}</h2>
                                             </div>
                                             <div className="playerprofile_profile_card_title">
                                                 {/* <div className='mils text-[14px]'><img src={imgmils} alt="icon" /> 14 miles away</div> */}
@@ -69,45 +70,33 @@ const Playerprofile = () => {
                                                     {/* <img src={Flag2} alt="" /> */}
                                                     {profileDAta.university || "University"} </div>
                                                 <br />
-                                                <div className="playerprofile_social_icons_main flex items-center gap-4">
-                                                    <div className='p-[15px]'>
-                                                        <img src={Fb} alt="" /></div>
-                                                    <div><img src={Insta} alt="" /></div>
-                                                    <div><img src={Yt} alt="" /></div>
-                                                    <div> <img src={X} alt="" /></div>
-                                                </div>
+                                                {profileDAta.facebook || profileDAta.instagram || profileDAta.youtube || profileDAta.twitter ?
+
+                                                    <div className="playerprofile_social_icons_main flex items-center gap-4">
+                                                        {profileDAta.facebook &&  <Link to={`${profileDAta.facebook}`}><div className='p-[15px]'><img src={Fb} alt="" /></div></Link>}
+                                                        {profileDAta.instagram &&  <Link to={`${profileDAta.instagram}`}><div><img src={Insta} alt="" /></div></Link>}
+                                                        {profileDAta.youtube && <Link to={`${profileDAta.youtube}`}><div><img src={Yt} alt="" /></div></Link>}
+                                                        {profileDAta.twitter && <Link to={`${profileDAta.twitter}`}><div> <img src={X} alt="" /></div></Link>}
+                                                    </div>
+
+                                                    : <SocialModal />}
                                             </div>
                                         </div>
-                                        <div className='profile_content2'>
+
+                                        <div className="playerprofile_info_div">
                                             <div>
-                                                <div className="playerprofile_info_div">
-                                                    <div>
-                                                        <p>Height</p>
-                                                        <h6>{profileDAta.height || 0}</h6>
-                                                    </div>
-                                                    <div>
-                                                        <p>Weight</p>
-                                                        <h6>{profileDAta.weight || 0} lbs</h6>
-                                                    </div>
-                                                    <div style={{ borderRight: "none" }}>
-                                                        <p>Year</p>
-                                                        <h6>{profileDAta.year || 0}</h6>
-                                                    </div>
-                                                </div>
-                                                <div className="text-center mt-3">
-                                                    <div>
-                                                        <h6>{countPosts.imgCnt + countPosts.vdoCnt}</h6>
-                                                        <p>Posts</p>
-                                                    </div>
-                                                    {/* <div>
-                                                        <h6>0</h6>
-                                                        <p>Followers</p>
-                                                    </div>
-                                                    <div>
-                                                        <h6>0</h6>
-                                                        <p>Following</p>
-                                                    </div> */}
-                                                </div>
+                                                <p>Height</p>
+                                                <h6>{profileDAta.height || 0}</h6>
+                                            </div>
+                                            <p className='border-r border-r-[#6E779A33] h-[40px] ' />
+                                            <div>
+                                                <p>Weight</p>
+                                                <h6>{profileDAta.weight || 0} lbs</h6>
+                                            </div>
+                                            <p className='border-r border-r-[#6E779A33] h-[40px] ' />
+                                            <div style={{ borderRight: "none" }}>
+                                                <p>Year</p>
+                                                <h6>{profileDAta.year || 0}</h6>
                                             </div>
                                         </div>
                                         <div className='flowbtns'>
@@ -125,12 +114,12 @@ const Playerprofile = () => {
                                             <Link to={`/${userexist ? "profile" : "login"}`} className='w-full'>
                                                 {profileDAta.name ?
                                                     <button className=' w-[200px]  text-[18px] hovring  m-0 py-2.5 flex gap-2 border mt-3 items-center justify-center border-gray-600 rounded-full'
-                                                     onClick={() => setEditableData(profileDAta)}>
+                                                        onClick={() => setEditableData(profileDAta)}>
                                                         Edit profile
                                                     </button>
-                                                    :<button className=' w-[200px] text-[18px] hovring  m-0 py-2.5 flex gap-2 border mt-3 items-center justify-center border-gray-600 rounded-full'>
-                                                    Create profile
-                                                </button>
+                                                    : <button className=' w-[200px] text-[18px] hovring  m-0 py-2.5 flex gap-2 border mt-3 items-center justify-center border-gray-600 rounded-full'>
+                                                        Create profile
+                                                    </button>
                                                 }
                                             </Link>
 
@@ -150,4 +139,3 @@ const Playerprofile = () => {
 
 export default Playerprofile
 
- 

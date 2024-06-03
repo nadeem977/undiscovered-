@@ -38,11 +38,11 @@ const RelativePlayers = () => {
             </div>
             {FilterByTeams.map((item, i) => (
                 <Link to={`/ViewProfile/${item._id}`} key={i} >
-                    <div className='flex items-center border-t border-b py-2 gap-3'>
+                    <div className='flex items-center border-t border-b py-3 gap-3'>
                         <img
                             src={`${IMAGE_URL}/${item?.image}`}
                             alt="images"
-                            className='w-[50px] h-[50px] object-cover rounded-full'/>
+                            className='w-[60px] h-[60px] object-cover rounded-full'/>
                         <div>
                             <h1>{item.name}</h1>
                             <p>PG | {item.height} | {item.year}</p>
