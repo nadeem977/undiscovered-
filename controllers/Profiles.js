@@ -462,6 +462,25 @@ const RemovingArticleUsers = async (req, res) => {
   }
 };
 
+const AddSocialLinks = async(req,res)=>{
+try{
+  const findUser = await Profile.findOne({email:req.body.email})
+  if(findUser){
+    findUser.facebook = req.body.facebook
+    findUser.instagram = req.body.instagram
+    findUser.youtube = req.body.youtube
+    findUser.twitter = req.body.twitter
+    await findUser.save()
+    res.status(200).send(findUser)
+  }else{
+    res.status(404).send("User not found")
+  }
+
+}catch (error){
+ console.log(error)
+ res.status(500).send(500)
+}
+}
 
 module.exports = {
   CreateProfile,
@@ -482,4 +501,5 @@ module.exports = {
   RemovingArticles,
   AddnewRecruiter,
   RemovingArticleUsers,
+  AddSocialLinks,
 };

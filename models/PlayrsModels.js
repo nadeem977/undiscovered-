@@ -32,10 +32,7 @@ const offers = new mongoose.Schema({
     type: Boolean,
     default: false, 
   },
-  // logo: {
-  //   type: String,
-  //   default:""
-  // },
+ 
 });
 
 const RecruitesSchema = new mongoose.Schema({
@@ -117,6 +114,22 @@ const PlayrsSchema = new mongoose.Schema(
     },
     Offers: [offers],
     Article: [articleSchema],
+    instagram:{
+      type:String,
+      default:""
+    },
+    facebook:{
+      type:String,
+      default:""
+    },
+    youtube:{
+      type:String,
+      default:""
+    },
+    twitter:{
+      type:String,
+      default:""
+    },
   },
   { timestamps: true }
 );

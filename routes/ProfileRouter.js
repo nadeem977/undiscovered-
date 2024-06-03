@@ -17,6 +17,7 @@ const {
   RemovingArticles,
   AddnewRecruiter,
   RemovingArticleUsers,
+  AddSocialLinks
 
 } = require("../controllers/Profiles");
 const express = require("express");
@@ -98,7 +99,7 @@ const uploadArticles = multer({ storage: storageArticle });
 router.post("/ArticlesByAdmin",uploadArticles.single("image"),CreatingArticle)
 router.post("/UpdateArticles",AddnewRecruiter)
 router.post("/RemovingSignleUserFromArticle",RemovingArticleUsers)
-
+router.post("/SocialsLinks",AddSocialLinks)
    
 
 
